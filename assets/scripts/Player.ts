@@ -4,13 +4,16 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class Player extends cc.Component {
 
-    speed: number = 2
+    speed: number = 3
 
     state: string;
 
     dir: cc.Vec2 = null;
 
     anim: cc.Animation = null;
+
+    @property(cc.Node)
+    private camera: cc.Node = null;    
 
 
     changeState(state: string) {
@@ -58,6 +61,14 @@ vectorsToDegress (dir) {
     update(dt) {
         if (this.state == 'walk') {
             this.node.position = this.node.position.add(this.dir.normalize().mul(this.speed))
+            
+            if ( -480 < this.node.position.x && this.node.position.x < 480
+                 &&  -160 < this.node.position.y && this.node.position.y < 160) {
+                this.camera.position = this.node.position
+                console.log('position', this.node.position)
+            }
+
+
         }
     }
 
