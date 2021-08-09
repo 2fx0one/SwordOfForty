@@ -60,7 +60,8 @@ vectorsToDegress (dir) {
 
     update(dt) {
         if (this.state == 'walk') {
-            this.node.position = this.node.position.add(this.dir.normalize().mul(this.speed))
+            const d = this.dir.normalize().mul(this.speed);
+            this.node.position = this.node.position.add(cc.v3(d.x, d.y, 0))
             
             if ( -480 < this.node.position.x && this.node.position.x < 480
                  &&  -160 < this.node.position.y && this.node.position.y < 160) {
